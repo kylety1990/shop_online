@@ -1,4 +1,5 @@
 <?php
+require_once 'models/users.php';
 
 class UserController{
     public function index(){
@@ -10,6 +11,19 @@ class UserController{
     }
     
     public function save(){
-        require_once 'views/users/save.php';
+        if(isset($_POST)){
+            $user = new Users();
+            $user->setName($_POST['name']);
+            $user->setSurname($_POST['surname']);
+            $user->setEmail($_POST['email']);
+            $user->setPassword($_POST['password']);
+            
+            var_dump($user);
+  //          var_dump($user['surname']);
+    //        var_dump($user['email']);
+      //      var_dump($user['password']);
+            }
+                
+   
     }
 }
