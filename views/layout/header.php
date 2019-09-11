@@ -22,7 +22,7 @@
             <nav id="menu">
                 <ul>
                     <li>
-                        <a href="#">Inicio</a>
+                        <a href="">Inicio</a>
                     </li>
                     <li>
                         <a href="#">Calzado</a>

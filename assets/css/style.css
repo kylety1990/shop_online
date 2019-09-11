@@ -21,6 +21,13 @@ a:hover{
     color:#0DA39D;
 }
 
+.alert_green{
+    color:greenyellow;
+}
+.alert_red{
+    color: red;
+}
+
 /*CONTAINER*/
 
 #container{
