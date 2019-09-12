@@ -31,7 +31,7 @@ class Users{
     }
 
     function getPassword() {
-        return $this->password;
+        return password_hash($this->db->real_escape_string($this->password), PASSWORD_BCRYPT, ['cost' => 4]);
     }
 
     function getRol() {
@@ -59,7 +59,7 @@ class Users{
     }
 
     function setPassword($password) {
-        $this->password = password_hash($this->db->real_escape_string($password), PASSWORD_BCRYPT, ['cost' => 4]);
+        $this->password = $password;
     }
 
     function setRol($rol) {
@@ -79,6 +79,26 @@ class Users{
         if($register){
            $result=true; 
         }
+        return $result;
+    }
+    
+    public function login(){
+        
+        $email = $this->email;
+        $password = $this->password;
+        $sql= "Select * FROM users WHERE email='$email'";
+        $login = $this->db->query($sql);
+        $result = false;
+        
+        if($login && $login->num_rows ==1){
+            $user= $login->fetch_object();
+            
+            $verify = password_verify($password, $user->password);
+            if($verify){
+                $result = $user;
+            }
+            
+        } 
         return $result;
     }
     

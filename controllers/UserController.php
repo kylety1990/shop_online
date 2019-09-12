@@ -69,5 +69,26 @@ class UserController {
         }
         header('Location: '.base_url.'user/register');
     }
+    public function login(){
+        
+         if (isset($_POST)) {
+           $user = new Users();
+           $user->setEmail($_POST['email']);
+           $user->setPassword($_POST['password']);
+           $identity = $user->login();
+           
+           if($identity && is_object($identity)){
+               $_SESSION['identity']= $identity;
+               if($identity->role == 'admin'){
+                  $_SESSION['admin']= true;
+               }
+           }else{
+               $_SESSION['error']= "error de login";
+           }
+         }else{
+              $_SESSION['error']= "error de login";
+         }
+         header('Location: '.base_url);
+        }
 
 }

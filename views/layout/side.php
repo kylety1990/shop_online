@@ -2,7 +2,7 @@
                 <aside id="side">
                     <div id="login" class="block_aside">
                         <h3>Entrar a tu cuenta</h3>
-                        <form action="" method="POST">
+                        <form action="<?= base_url?>user/login" method="POST">
                             <label for="email">Email</label>
                             <input type="email" name="email">
                             <label for="password">Password</label>
