@@ -79,7 +79,7 @@ class UserController {
            
            if($identity && is_object($identity)){
                $_SESSION['identity']= $identity;
-               if($identity->role == 'admin'){
+               if($identity->rol == 'admin'){
                   $_SESSION['admin']= true;
                }
            }else{
@@ -90,5 +90,38 @@ class UserController {
          }
          header('Location: '.base_url);
         }
+        
+    public function logout(){
+        if(isset($_SESSION['identity'])){
+            unset($_SESSION['identity']);
+        }
+        
+        if(isset($_SESSION['admin'])){
+            unset($_SESSION['admin']);
+        }
+        header('Location:'.base_url);
+        
+    }
+    
+    public function category(){
+        require_once 'views/users/createCategory.php';
+    }
+    public function saveCategory(){
+        if(isset($_POST)){
+            $name = isset($_POST['name'])? $_POST['name']: false;
+            
+            $_SESSION['error']=[];
+            
+            if(!empty($name) && !is_numeric($name)) {
+                $name_validate = $name;
+            }else{
+                $name_validate = false;
+                $_SESSION['error']['name']= 'Nombre incorrecto';
+            }
+            
+            
+            
+        }
+    }
 
 }

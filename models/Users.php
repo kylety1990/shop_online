@@ -94,12 +94,15 @@ class Users{
             $user= $login->fetch_object();
             
             $verify = password_verify($password, $user->password);
+            
             if($verify){
                 $result = $user;
             }
             
         } 
+        
         return $result;
     }
+    
     
 }

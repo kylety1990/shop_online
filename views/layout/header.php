@@ -12,30 +12,28 @@
             <header id="header">
                 <div id="logo">
                     <img src="<?=base_url?>assets/img/logo.png" alt="logo"/>
-                    <a href="index.php">
+                    <a href="<?=base_url?>">
                         SHOP ONLINE
                     </a>
                 </div>
             </header>
 
             <!-- MENU -->
+            <?php $categories = Utils::showCategories(); ?>
             <nav id="menu">
                 <ul>
                     <li>
-                        <a href="">Inicio</a>
+                        <a href="<?= base_url;?>">Inicio</a>
                     </li>
+                    
+                    <?php while($category = $categories->fetch_object()) :?>
                     <li>
-                        <a href="#">Calzado</a>
-                    </li>
-                    <li>
-                        <a href="#">Ropa</a>
-                    </li>
-                    <li>
-                        <a href="#">Accesorios</a>
+                        <a href="<?= base_url;?>"><?= $category->name;?></a>
                     </li>
                     <li>
                         <a href="#">Contacto</a>
                     </li>
+                    <?php endwhile; ?>
                 </ul>
             </nav>
             <div id="content">
