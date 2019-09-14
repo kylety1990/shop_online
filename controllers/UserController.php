@@ -92,6 +92,7 @@ class UserController {
         }
         
     public function logout(){
+        
         if(isset($_SESSION['identity'])){
             unset($_SESSION['identity']);
         }

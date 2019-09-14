@@ -23,13 +23,13 @@
                             <?php if(isset($_SESSION['admin'])) : ?>
                             <li><a href="">Gestionar pedidos</a></li>
                             <li><a href="<?= base_url;?>category/index">Gestionar categorias</a></li>
-                            <li><a href="">Gestionar productos</a></li>
-                            <li><a href="<?php base_url;?>user/logout">Desconectar</a></li>
+                            <li><a href="<?= base_url;?>product/management">Gestionar productos</a></li>
+                            <li><a href="<?= base_url;?>user/logout">Desconectar</a></li>
                             <?php elseif(isset($_SESSION['identity']) && !isset($_SESSION['admin']) ): ?>
                             <li><a href="">Mis pedidos</a></li>
-                            <li><a href="<?php base_url;?>user/logout">Desconectar</a></li>
+                            <li><a href="<?= base_url;?>user/logout">Desconectar</a></li>
                             <?php else: ?>
-                            <li><a href="<?php base_url;?>user/register">Registrate</a></li>
+                            <li><a href="<?=base_url;?>user/register">Registrate</a></li>
                             <?php endif; ?>
                            
                         </ul> 

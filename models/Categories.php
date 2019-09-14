@@ -39,7 +39,6 @@ class Categories{
         $name = $this->name;
         $sql = "INSERT INTO categories VALUES(null, '$name') ";
         $register = $this->db->query($sql);
-
         $result = false;
         if($register){
            $result=true; 

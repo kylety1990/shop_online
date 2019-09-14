@@ -4,8 +4,8 @@
 <a href="<?= base_url;?>category/createCategory" class="button button-small">Crear categoria</a>
 <table border="1">
     <tr>
-        <th>Id</td>
-        <th>Name</td>
+        <th>Id</th>
+        <th>Name</th>
     </tr>
 <?php if($allCategories):?>
 <?php while($category = $allCategories->fetch_object()) : ?>
