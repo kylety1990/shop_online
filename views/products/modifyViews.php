@@ -1,8 +1,15 @@
-<h1>Crea tu producto</h1>
+<h1>Modificar</h1>
+<?php $products = Utils::showProducts();?>
+<?php    $data = $_POST['id'];?>
 
+
+<?php $verify= Utils::checkData($data);?>
+
+
+<?php if($verify):?>
 <?php $categories = Utils::showCategories();?>
 
-<form action="<?= base_url;?>product/saveProduct" method="POST">
+<form action="<?= base_url;?>product/saveModify" method="POST">
     <label for="category">Categoria</label>
     <select name="category">
     <?php while($category = $categories->fetch_object()) : ?>
@@ -28,3 +35,7 @@
     <input type="submit" value="Crear">
     
 </form>
+<?php else : ?>
+
+    <?php header('Location:'.base_url.'product/modifyViews');?>
+<?php endif; ?>

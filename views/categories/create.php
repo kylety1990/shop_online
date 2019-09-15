@@ -8,5 +8,5 @@
     <input type='text' name='name' required/>
    
     
-    <input type="submit" value="Registrarse"/>
+    <input type="submit" value="Crear Categoria"/>
 </form>

@@ -23,5 +23,28 @@ class Utils {
         $allCategories = $categories->allCategories();
         return $allCategories;
     }
-
+    
+    public static function showProducts(){
+        require_once 'models/Products.php';
+        $product = new Product();
+        $allProducts= $product->getAll();
+        return $allProducts;
+    }
+    
+    public static function checkData($data){
+        require_once 'models/Products.php';
+        $product = new Product();
+        $products = $product->getAll();
+        $result = false;
+        while($pro = $products->fetch_object()){
+           
+            if($data == $pro->id){
+                $result = true;
+                break;
+            }
+            
+        }
+        return $result;
+        
+    }
 }

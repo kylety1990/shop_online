@@ -13,6 +13,7 @@ class Product{
     private $db;
     
     function getId() {
+        
         return $this->id;
     }
 
@@ -86,6 +87,7 @@ class Product{
 
     public function __construct() {
         $this->db = Database::connect();
+        $this->offer = "no";
     }
     
     public function getAll(){
@@ -105,12 +107,59 @@ class Product{
         $description = $this->getDescription();
         $price = $this->getPrice();
         $stock = $this->getStock();
-        $sql = "INSERT INTO products VALUES(null, '$category_id', '$name', '$description', '$price', '$stock', null, CURDATE(), null)";
+        $offer = $this->getOffer();
+        $sql = "INSERT INTO products VALUES(null, '$category_id', '$name', '$description', '$price', '$stock', '$offer', CURDATE(), null)";
         $save = $this->db->query($sql);
         $result = false;
         if($save){
             $result = true;
         }
+        return $result;
+    }
+    public function searchName($name){
+       
+        $sql = "SELECT * FROM products WHERE name LIKE '%$name%' ORDER BY id DESC";
+
+        $search = $this->db->query($sql);
+        $result=false;
+        if($search && $search->num_rows >=1){
+            $result = $search;
+        }
+
+        return $result;
+    }
+    
+    public function searchId($id){
+        $sql = "SELECT * FROM products WHERE id = '$id'";
+        $search = $this->db->query($sql);
+        $result =false;
+       
+        if($search && $search->num_rows ==1){
+            $result = $search;
+        }
+        return $result;
+    }
+    
+    public function modifyProduct(){
+        $id = $this->getId();
+        $category_id = $this->getCategory_id();
+        $name = $this->getName();
+        $description = $this->getDescription();
+        $price = $this->getPrice();
+        $stock = $this->getStock();
+        $sql = "UPDATE products SET category_id= '$category_id', name='$name', description= '$description', price = '$price', stock='$stock' WHERE id = '$id' ";
+    }
+    
+    public function deleteProducts(){
+        $id = $this->getId();
+        $sql = "DELETE FROM products WHERE id = '$id'";
+
+        $delete = $this->db->query($sql);
+        $result = false;
+        if($delete){
+            $result = true;
+        }
+
         return $result;
     }
     

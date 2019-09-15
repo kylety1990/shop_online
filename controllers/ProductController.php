@@ -87,4 +87,79 @@ class ProductController{
         header('Location:'.base_url.'product/management');
     }
     
+    public function modify(){
+        require_once 'views/products/modify.php';
+    }
+    public function modifyViews(){
+       
+        $data = $_POST;
+        
+    if(empty($data)) {
+        header('Location:'.base_url.'product/modifyProduct');
+    }   
+    else{
+        require_once 'views/products/modifyViews.php';
+        }
+    }
+    
+    public function modifyProduct(){
+        $products = [];
+        if(!empty($_POST['name'])){
+        $datos= $_POST['name'];
+        $product = new Product();
+        $products = $product->searchName($datos);
+
+        }
+        elseif(!empty($_POST['id'])){
+        $datos = $_POST['id']  ;
+        $product = new Product();
+        $products = $product->searchId($datos);
+        
+        }else{
+            header('Location:'.base_url.'product/modify');
+        }
+        
+        
+      
+        require_once 'views/products/modify2.php';
+        
+    }
+   public function saveModify(){
+       var_dump($_POST);
+       echo "esta correcto";
+   }
+    
+    public function delete(){
+        
+        require_once 'views/products/delete.php';
+    }
+    
+    public function deleteProduct(){
+        Utils::isAdmin();
+        
+        if(isset($_POST)){
+            $id = isset($_POST['id']) ? $_POST['id']: false;
+            $_SESION['error']=[];
+            if(!empty($id)){
+                $validate_id = $id;
+            }else{
+                $_SESSION['error']['id']= "El id introducido es erroneo";
+            }
+            
+            $product = new Product();
+            $product->setId($validate_id);
+
+            $delete = $product->deleteProducts();
+            
+            if($delete && $delete->num_rows == 1){
+                $_SESSION['delete']= 'Deleted completed';
+            }else{
+                $_SESSION['delete']= 'Deleted failled';
+            }
+        } else{
+            $_SESSION['delete']= 'Deleted failled';
+        }
+        header('Location:'.base_url.'product/management');
+    }
+    
 }

@@ -1,6 +1,10 @@
 <h1>Gestionar Categoria</h1>
 
+<?php if(isset($_SESSION['create'])):?>
 
+    <strong class='alert_green'><?= $_SESSION['create']; ?></strong>
+
+<?php endif; ?>
 <a href="<?= base_url;?>category/createCategory" class="button button-small">Crear categoria</a>
 <table border="1">
     <tr>
@@ -18,3 +22,4 @@
     <strong><?= 'No existen categorias por el momento, pulse el boton crear'; ?></strong>
 <?php endif; ?>
     </table>
+<?php Utils::deleteSession('create');?>

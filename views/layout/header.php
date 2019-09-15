@@ -30,10 +30,11 @@
                     <li>
                         <a href="<?= base_url;?>"><?= $category->name;?></a>
                     </li>
+                    
+                    <?php endwhile; ?>
                     <li>
                         <a href="#">Contacto</a>
                     </li>
-                    <?php endwhile; ?>
                 </ul>
             </nav>
             <div id="content">
