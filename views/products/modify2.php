@@ -2,7 +2,7 @@
     
 <a href="<?= base_url;?>product/modify" class="button button-small button-return"><= Volver</a>
     
-<form action="<?= base_url;?>product/modifyViews" method="POST">
+<form action="<?= base_url;?>product/productById" method="POST">
     
     <label for='id'>Inserta su Id</label>
     <input text='text' name='id'/>

@@ -3,9 +3,8 @@ require_once 'models/products.php';
 class ProductController{
     public function index(){
         
-        
-        
-        require_once 'views/products/featured.php';
+ require_once 'views/products/featured.php';
+ 
     }
     public function management(){
         Utils::isAdmin();
@@ -88,21 +87,13 @@ class ProductController{
     }
     
     public function modify(){
+        Utils::isAdmin();
         require_once 'views/products/modify.php';
-    }
-    public function modifyViews(){
-       
-        $data = $_POST;
-        
-    if(empty($data)) {
-        header('Location:'.base_url.'product/modifyProduct');
-    }   
-    else{
-        require_once 'views/products/modifyViews.php';
-        }
     }
     
     public function modifyProduct(){
+        Utils::isAdmin();
+        
         $products = [];
         if(!empty($_POST['name'])){
         $datos= $_POST['name'];
@@ -125,12 +116,70 @@ class ProductController{
         
     }
    public function saveModify(){
-       var_dump($_POST);
-       echo "esta correcto";
+       Utils::isAdmin();
+      
+        if(isset($_POST)){
+            $id= isset($_POST['id']) ? $_POST['id'] : false ;
+            $category_id= isset($_POST['category']) ? $_POST['category'] : false ;
+            $name = isset($_POST['name'])? $_POST['name']: false;
+            $description = isset($_POST['description'])? $_POST['description']: false;
+            $price = isset($_POST['price'])? $_POST['price']: false;
+            $stock= isset($_POST['stock'])? $_POST['stock']: false;
+            //$image= isset($_POST['image'])? $_POST['image']: false;
+            $_SESSION['error']=[];
+            
+            if(!empty($name) && !is_numeric($name)){
+                $name_validate =$name;
+            }else{
+                $_SESSION['error']['name']= 'Nombre erroneo, inserte de nuevo';
+            }
+            
+            if(!empty($description)){
+                $description_validate = $description;
+            }else{
+                $_SESSION['error']['description']= 'descripcion vacia, inserte algo por favor';
+            }
+            
+            if(!empty($price) && is_numeric($price) ){
+                $price_validate = $price;
+            }else{
+                $_SESSION['error']['price']= 'Precio erroneo, inserte otro dato por favor';
+            }
+            
+            if(!empty($stock) && is_numeric($stock)){
+                $stock_validate = $stock;
+            }else{
+                $_SESSION['error']['stock']= 'Precio erroneo, inserte otro dato por favor';
+            }
+            
+
+            $product = new Product();
+            $product->setId($id);
+            $product->setCategory_id($category_id);
+            $product->setName($name_validate);
+            $product->setDescription($description_validate);
+            $product->setPrice($price_validate);
+            $product->setStock($stock_validate);
+             
+            
+            $save = $product->modifyProduct();
+            
+            
+            if($save){
+                $_SESSION['modify']='Producto modificado correctamente';
+            }else{
+                $_SESSION['modify']='No se ha podido modificar el producto, vuelva a intentarlo';
+            }
+            
+           
+        }else{
+            $_SESSION['modify']='No se ha podido modificar el producto, vuelva a intentarlo';
+        }
+        header('Location:'.base_url.'product/management');
    }
     
     public function delete(){
-        
+        Utils::isAdmin();
         require_once 'views/products/delete.php';
     }
     
@@ -160,6 +209,33 @@ class ProductController{
             $_SESSION['delete']= 'Deleted failled';
         }
         header('Location:'.base_url.'product/management');
+    }
+    
+    public function productById(){
+        Utils::isAdmin();
+        $data = $_POST['id'];
+       
+    if(empty($data)) {
+        header('Location:'.base_url.'product/modifyProduct');
+    }   
+    else{
+        
+        $product = new Product();
+        $object = $product->searchId($data);
+        
+        if(is_object($object)){
+            $result = $object->fetch_object();
+            require_once 'views/products/modifyViews.php';
+        }else{
+            $_SESSION['search']='El id introducido no existe, busque otro producto';
+            header('Location:'.base_url.'product/modifyProduct');
+        }
+          
+        }
+        
+        
+        
+        
     }
     
 }

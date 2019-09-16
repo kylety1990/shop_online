@@ -130,14 +130,18 @@ class Product{
     }
     
     public function searchId($id){
+        
         $sql = "SELECT * FROM products WHERE id = '$id'";
+        
         $search = $this->db->query($sql);
         $result =false;
-       
+        
         if($search && $search->num_rows ==1){
             $result = $search;
         }
+        
         return $result;
+        
     }
     
     public function modifyProduct(){
@@ -148,7 +152,17 @@ class Product{
         $price = $this->getPrice();
         $stock = $this->getStock();
         $sql = "UPDATE products SET category_id= '$category_id', name='$name', description= '$description', price = '$price', stock='$stock' WHERE id = '$id' ";
+        
+        $modify = $this->db->query($sql);
+        $result= false;
+        if($modify){
+            
+        $result = true;
+        }
+         return $result;
+        
     }
+    
     
     public function deleteProducts(){
         $id = $this->getId();
@@ -159,8 +173,10 @@ class Product{
         if($delete){
             $result = true;
         }
-
+        
         return $result;
+        
     }
+    
     
 }

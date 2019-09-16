@@ -40,11 +40,13 @@ class Utils {
            
             if($data == $pro->id){
                 $result = true;
-                break;
+                
             }
             
         }
         return $result;
         
     }
+    
+    
 }

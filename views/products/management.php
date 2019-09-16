@@ -12,6 +12,10 @@
 <?php elseif(isset($_SESSION['delete'])):?>
 
     <strong class="alert_green"><?= $_SESSION['delete'];?></strong>
+    
+<?php elseif(isset($_SESSION['modify'])):?>
+
+    <strong class="alert_green"><?= $_SESSION['modify'];?></strong>
 
 
 <?php endif; ?>
@@ -45,3 +49,4 @@
     </table>
 <?php Utils::deleteSession('product');?>
 <?php Utils::deleteSession('delete');?>
+<?php Utils::deleteSession('modify');?>

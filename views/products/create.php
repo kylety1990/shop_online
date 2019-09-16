@@ -2,6 +2,7 @@
 
 <?php $categories = Utils::showCategories();?>
 
+
 <form action="<?= base_url;?>product/saveProduct" method="POST">
     <label for="category">Categoria</label>
     <select name="category">
